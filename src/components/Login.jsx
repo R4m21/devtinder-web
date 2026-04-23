@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addUser } from "./redux/userSlice.js";
+import { addUser } from "../redux/userSlice.js";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "./utils/constants.js";
+import { BASE_URL } from "../utils/constants.js";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
