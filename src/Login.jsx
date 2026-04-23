@@ -18,7 +18,7 @@ const Login = () => {
         { withCredentials: true },
       );
       dispatch(addUser(response.data.data));
-      navigate("/profile");
+      navigate("/");
     } catch (err) {
       console.error("Login failed:", err);
     }

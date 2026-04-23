@@ -18,3 +18,4 @@
 - configureStore => Provider => createSlice => add reducer to store
 - Add redux devtools in chrome
 - Login and see if your data is coming properly in the store
+- NavBar should update as soon as user logs in
