@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { removeUser } from "./userSlice";
 
 const feedSlice = createSlice({
   name: "feed",
@@ -13,6 +14,11 @@ const feedSlice = createSlice({
     removedFeed: (state) => {
       return [];
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(removeUser, (state, action) => {
+      return [];
+    });
   },
 });
 

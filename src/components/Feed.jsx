@@ -21,13 +21,12 @@ const Feed = () => {
         params: { page, limit }, // Pagination ke liye query params
       });
 
-      console.log("Feed data:", response.data);
       dispatch(addFeed(response.data.data));
       setPageFeed((prev) => prev + 1);
     } catch (err) {
       console.error(
         "Failed to fetch feed:",
-        err?.response?.data || err.message,
+        err?.response?.data?.message || err.message,
       );
     }
   };
@@ -46,9 +45,6 @@ const Feed = () => {
       getFeed(pageFeed, limitFeed);
     }
   }, [feed.length]); // Sirf length change pe trigger karein
-
-  if (!feed || feed.length === 0)
-    return <h1 className="text-center my-10">No users found!</h1>;
 
   return (
     <div className="my-20 flex flex-col items-center gap-6">

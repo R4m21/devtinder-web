@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { removeUser } from "./userSlice";
 
 const connectionsSlice = createSlice({
   name: "connections",
@@ -19,6 +20,9 @@ const connectionsSlice = createSlice({
         return [...state, action.payload];
       }
       return state;
+    });
+    builder.addCase(removeUser, (state, action) => {
+      return [];
     });
   },
 });

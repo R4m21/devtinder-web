@@ -22,7 +22,10 @@ const Login = () => {
       dispatch(addUser(response.data.data));
       navigate("/");
     } catch (err) {
-      console.error("Login failed:", err);
+      console.error(
+        "Login failed:",
+        err?.response?.data?.message || err.message,
+      );
       setError(
         err?.response?.data?.message ||
           "Something went wrong. Please try again.",

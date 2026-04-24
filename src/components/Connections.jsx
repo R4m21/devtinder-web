@@ -18,7 +18,7 @@ const Connections = () => {
     } catch (err) {
       console.error(
         "Error fetching connections:",
-        err?.response?.data || err.message,
+        err?.response?.data?.message || err.message,
       );
     }
   };

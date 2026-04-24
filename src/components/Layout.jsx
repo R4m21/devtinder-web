@@ -19,10 +19,9 @@ const Layout = () => {
       });
       dispatch(addUser(response?.data?.data));
     } catch (err) {
-      console.error("Error fetching user data:", err?.response || err);
+      console.error("Error fetching user data:", err?.response?.data?.message || err);
       if (err?.response?.status === 401) {
         dispatch(removeUser());
-        dispatch(removedFeed());
         navigate("/login");
       }
     }

@@ -38,7 +38,7 @@ const UserCard = ({
     } catch (err) {
       console.error(
         "Failed to send request:",
-        err?.response?.data || err.message,
+        err?.response?.data?.message || err.message,
       );
     }
   };
@@ -79,13 +79,13 @@ const UserCard = ({
         {actionButtons && (
           <div className="card-actions justify-center my-4">
             <button
-              className="btn btn-error"
+              className="btn w-1/3 btn-error"
               onClick={() => handleRequest(firstButton?.toLowerCase())}
             >
               {firstButton?.slice(0, 1)?.toUpperCase() + firstButton?.slice(1)}
             </button>
             <button
-              className="btn btn-primary"
+              className="btn w-1/3 btn-primary"
               onClick={() => handleRequest(secondButton?.toLowerCase())}
             >
               {secondButton?.slice(0, 1)?.toUpperCase() +

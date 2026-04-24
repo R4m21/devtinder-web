@@ -8,7 +8,6 @@ import UserCard from "./UserCard";
 const Requests = () => {
   const dispatch = useDispatch();
   const requests = useSelector((state) => state.requests) || [];
-  console.log(requests);
 
   const getRequests = async () => {
     try {
@@ -19,7 +18,7 @@ const Requests = () => {
     } catch (err) {
       console.error(
         "Error fetching requests:",
-        err?.response?.data || err.message,
+        err?.response?.data?.message || err.message,
       );
     }
   };
