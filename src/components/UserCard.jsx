@@ -47,7 +47,12 @@ const UserCard = ({
       <figure>
         <img
           src={user?.photoUrl || GENDER_DEFAULTS_PHOTO[user?.gender]}
-          alt="Shoes"
+          alt="User Photo"
+          onError={(e) => {
+            e.target.src =
+              GENDER_DEFAULTS_PHOTO[user?.gender] ||
+              "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp";
+          }}
         />
       </figure>
       <div className="card-body">
