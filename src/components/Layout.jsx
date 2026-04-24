@@ -1,10 +1,10 @@
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 import NavBar from "./NavBar";
-import { isCookie, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../redux/userSlice";
 
 const Layout = () => {
