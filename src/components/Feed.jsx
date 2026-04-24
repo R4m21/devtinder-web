@@ -6,6 +6,8 @@ import { addFeed } from "../redux/feedSlice";
 import UserCard from "./UserCard";
 
 const Feed = () => {
+  const user = useSelector((state) => state.user);
+  const isLoggedIn = !!user;
   const feed = useSelector((state) => state.feed) || [];
   const dispatch = useDispatch();
   const [pageFeed, setPageFeed] = useState(1);
@@ -48,13 +50,17 @@ const Feed = () => {
 
   return (
     <div className="flex flex-col items-center gap-6">
-      <div className="text-2xl font-bold">My Feed</div>
-      {feed?.length > 0 ? (
-        feed?.map((user) => (
-          <UserCard key={user._id} user={user} actionButtons={true} />
-        ))
+      <div className="text-2xl font-bold">
+        {isLoggedIn ? "My Feed" : "Welcome to Dev Tinder"}
+      </div>
+      {isLoggedIn ? (
+        feed?.length > 0 ? (
+          <UserCard key={feed[0]._id} user={feed[0]} actionButtons={true} />
+        ) : (
+          <p className="text-gray-500">No feed available.</p>
+        )
       ) : (
-        <p className="text-gray-500">No feed available.</p>
+        <></>
       )}
     </div>
   );

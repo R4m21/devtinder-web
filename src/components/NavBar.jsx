@@ -29,7 +29,7 @@ const NavBar = () => {
         </Link>
       </div>
 
-      {user && (
+      {user ? (
         <div className="flex-none gap-2">
           <div className="form-control">Welcome, {user?.firstName}</div>
           <div className="dropdown dropdown-end mx-5">
@@ -80,6 +80,22 @@ const NavBar = () => {
             </ul>
           </div>
         </div>
+      ) : (
+        <>
+          {" "}
+          <div className="flex-none gap-2">
+            <div className="flex-1">
+              <Link className="btn btn-ghost text-xl" to="/login">
+                Login
+              </Link>
+            </div>
+            <div className="flex-1">
+              <Link className="btn btn-ghost text-xl" to="/signup">
+                Signup
+              </Link>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
