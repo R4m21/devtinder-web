@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
+import { sleep } from "../utils/helpers";
 
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
@@ -32,14 +33,13 @@ const Signup = () => {
         response.data.message || "Signup successful! Please login.",
       );
 
-      setTimeout(() => {
-        setFirstName("");
-        setLastName("");
-        setEmailId("");
-        setPassword("");
-        setIsLoading(false);
-        navigate("/login");
-      }, 1000);
+      await sleep(500);
+
+      setFirstName("");
+      setLastName("");
+      setEmailId("");
+      setPassword("");
+      navigate("/login");
     } catch (error) {
       setError(
         error.response.data.message || "Signup failed. Please try again.",
@@ -49,9 +49,8 @@ const Signup = () => {
         error.response?.data?.message || error.message,
       );
     } finally {
-      setTimeout(() => {
-        setAlertMessage("");
-      }, 500);
+      setIsLoading(false);
+      setAlertMessage("");
     }
   };
 

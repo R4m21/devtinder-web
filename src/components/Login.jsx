@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../redux/userSlice.js";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants.js";
+import { sleep } from "../utils/helpers.js";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("");
@@ -17,20 +18,22 @@ const Login = () => {
   const handleLogin = async () => {
     setIsLoading(true);
     setError("");
+    setAlertMessage("");
     try {
       const response = await axios.post(
         `${BASE_URL}/login`,
         { emailId, password },
         { withCredentials: true },
       );
+
       setAlertMessage(
         response.data.message || "Login successful! Redirecting...",
       );
-      setTimeout(() => {
-        dispatch(addUser(response?.data?.data));
-        setIsLoading(false);
-        navigate("/");
-      }, 1000);
+
+      await sleep(500);
+
+      dispatch(addUser(response?.data?.data));
+      navigate("/");
     } catch (err) {
       console.error(
         "Login failed:",
@@ -41,9 +44,8 @@ const Login = () => {
           "Something went wrong. Please try again.",
       );
     } finally {
-      setTimeout(() => {
-        setAlertMessage("");
-      }, 500);
+      setIsLoading(false);
+      setAlertMessage("");
     }
   };
 
