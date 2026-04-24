@@ -11,6 +11,16 @@ const connectionsSlice = createSlice({
       return [];
     },
   },
+  // extraReducers is used to listen to actions from other slices, in this case, we want to listen to updates from the requestsSlice
+  extraReducers: (builder) => {
+    builder.addCase("requests/updateRequests", (state, action) => {
+      // When a request is accepted, we add the user to connections
+      if (action.payload.status === "accepted") {
+        return [...state, action.payload];
+      }
+      return state;
+    });
+  },
 });
 
 export const { addConnections, removeConnections } = connectionsSlice.actions;

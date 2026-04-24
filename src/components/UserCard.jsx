@@ -3,6 +3,7 @@ import React from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { updateFeed } from "../redux/feedSlice";
+import { updateRequests } from "../redux/requestsSlice";
 
 const STATUS_MAP = {
   ignore: "ignored",
@@ -30,7 +31,7 @@ const UserCard = ({
       );
 
       if (from === "requests") {
-        // If the action is from the Requests component, we need to update both the feed and connections
+        dispatch(updateRequests({ ...user, status: STATUS_MAP[status] }));
       } else {
         dispatch(updateFeed(user));
       }
