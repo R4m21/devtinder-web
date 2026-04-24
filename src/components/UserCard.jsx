@@ -1,16 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { BASE_URL } from "../utils/constants";
+import {
+  BASE_URL,
+  GENDER_DEFAULTS_PHOTO,
+  STATUS_MAP,
+} from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { updateFeed } from "../redux/feedSlice";
 import { updateRequests } from "../redux/requestsSlice";
-
-const STATUS_MAP = {
-  ignore: "ignored",
-  interest: "interested",
-  accept: "accepted",
-  reject: "rejected",
-};
 
 const UserCard = ({
   user,
@@ -49,10 +46,7 @@ const UserCard = ({
     <div className="card bg-base-300 w-96 shadow-xl">
       <figure>
         <img
-          src={
-            user?.photoUrl ||
-            "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          }
+          src={user?.photoUrl || GENDER_DEFAULTS_PHOTO[user?.gender]}
           alt="Shoes"
         />
       </figure>

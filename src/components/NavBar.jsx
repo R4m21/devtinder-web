@@ -3,8 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { removeUser } from "../redux/userSlice";
-import { BASE_URL } from "../utils/constants";
-import { removedFeed } from "../redux/feedSlice";
+import { BASE_URL, GENDER_DEFAULTS_PHOTO } from "../utils/constants";
 
 const NavBar = () => {
   const user = useSelector((state) => state.user);
@@ -44,6 +43,7 @@ const NavBar = () => {
                   alt="Tailwind CSS Navbar component"
                   src={
                     user?.photoUrl ||
+                    GENDER_DEFAULTS_PHOTO[user?.gender] ||
                     "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                   }
                 />
