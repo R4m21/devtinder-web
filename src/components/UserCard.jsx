@@ -4,18 +4,36 @@ import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { updateFeed } from "../redux/feedSlice";
 
-const UserCard = ({ user, actionButtons = true }) => {
+const STATUS_MAP = {
+  ignore: "ignored",
+  interest: "interested",
+  accept: "accepted",
+  reject: "rejected",
+};
+
+const UserCard = ({
+  user,
+  actionButtons = true,
+  firstButton = "ignore",
+  secondButton = "interest",
+  action = "send",
+  from = "",
+}) => {
   const dispatch = useDispatch();
 
   const handleRequest = async (status) => {
     try {
       await axios.post(
-        `${BASE_URL}/request/send/${status}/${user._id}`,
+        `${BASE_URL}/request/${action}/${STATUS_MAP[status]}/${from === "requests" ? user.requestId : user._id}`,
         {},
         { withCredentials: true },
       );
 
-      dispatch(updateFeed(user)); // Update the feed based on the response
+      if (from === "requests") {
+        // If the action is from the Requests component, we need to update both the feed and connections
+      } else {
+        dispatch(updateFeed(user));
+      }
     } catch (err) {
       console.error(
         "Failed to send request:",
@@ -61,15 +79,16 @@ const UserCard = ({ user, actionButtons = true }) => {
           <div className="card-actions justify-center my-4">
             <button
               className="btn btn-error"
-              onClick={() => handleRequest("ignored")}
+              onClick={() => handleRequest(firstButton?.toLowerCase())}
             >
-              Ignored
+              {firstButton?.slice(0, 1)?.toUpperCase() + firstButton?.slice(1)}
             </button>
             <button
               className="btn btn-primary"
-              onClick={() => handleRequest("interested")}
+              onClick={() => handleRequest(secondButton?.toLowerCase())}
             >
-              Interested
+              {secondButton?.slice(0, 1)?.toUpperCase() +
+                secondButton?.slice(1)}
             </button>
           </div>
         )}
