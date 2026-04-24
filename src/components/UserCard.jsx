@@ -1,10 +1,10 @@
 import axios from "axios";
-import React, { use } from "react";
+import React from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { updateFeed } from "../redux/feedSlice";
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, actionButtons = true }) => {
   const dispatch = useDispatch();
 
   const handleRequest = async (status) => {
@@ -47,20 +47,32 @@ const UserCard = ({ user }) => {
           </p>
         )}
         {user?.about && <p>{user?.about}</p>}
-        <div className="card-actions justify-center my-4">
-          <button
-            className="btn btn-error"
-            onClick={() => handleRequest("ignored")}
-          >
-            Ignored
-          </button>
-          <button
-            className="btn btn-primary"
-            onClick={() => handleRequest("interested")}
-          >
-            Interested
-          </button>
-        </div>
+        {user?.skills && user?.skills?.length > 0 && (
+          <div>
+            <h3 className="font-semibold">Skills:</h3>
+            <ul className="list-disc list-inside">
+              {user?.skills?.map((skill, index) => (
+                <li key={index}>{skill}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {actionButtons && (
+          <div className="card-actions justify-center my-4">
+            <button
+              className="btn btn-error"
+              onClick={() => handleRequest("ignored")}
+            >
+              Ignored
+            </button>
+            <button
+              className="btn btn-primary"
+              onClick={() => handleRequest("interested")}
+            >
+              Interested
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
