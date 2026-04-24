@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { updateFeed } from "../redux/feedSlice";
@@ -20,7 +20,9 @@ const UserCard = ({
   action = "send",
   from = "",
 }) => {
+  const [showAllSkills, setShowAllSkills] = useState(false);
   const dispatch = useDispatch();
+  const SKILLS_LIMIT = 3;
 
   const handleRequest = async (status) => {
     try {
@@ -67,13 +69,31 @@ const UserCard = ({
         )}
         {user?.about && <p>{user?.about}</p>}
         {user?.skills && user?.skills?.length > 0 && (
-          <div>
-            <h3 className="font-semibold">Skills:</h3>
-            <ul className="list-disc list-inside">
-              {user?.skills?.map((skill, index) => (
-                <li key={index}>{skill}</li>
-              ))}
-            </ul>
+          <div className="w-full">
+            <h3 className="font-semibold mb-2">Skills:</h3>
+            <div className="flex flex-wrap gap-2">
+              {user?.skills
+                ?.slice(0, showAllSkills ? user?.skills?.length : SKILLS_LIMIT)
+                ?.map((skill, index) => (
+                  <span
+                    key={index}
+                    title={skill}
+                    className="badge badge-lg badge-outline truncate max-w-xs"
+                  >
+                    {skill}
+                  </span>
+                ))}
+            </div>
+            {user?.skills?.length > SKILLS_LIMIT && (
+              <button
+                className="mt-2 text-sm text-blue-500 hover:underline"
+                onClick={() => setShowAllSkills(!showAllSkills)}
+              >
+                {showAllSkills
+                  ? `Show Less (${user?.skills?.length})`
+                  : `Show More (${user?.skills?.length - SKILLS_LIMIT}+)`}
+              </button>
+            )}
           </div>
         )}
         {actionButtons && (
