@@ -6,6 +6,7 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../redux/userSlice";
+import { removedFeed } from "../redux/feedSlice";
 
 const Layout = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const Layout = () => {
       console.error("Error fetching user data:", err?.response || err);
       if (err?.response?.status === 401) {
         dispatch(removeUser());
+        dispatch(removedFeed());
         navigate("/login");
       }
     }
