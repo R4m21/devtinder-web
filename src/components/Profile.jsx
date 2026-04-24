@@ -6,7 +6,8 @@ import UserCard from "./UserCard";
 const Profile = () => {
   const user = useSelector((state) => state.user);
   return (
-    <div>
+    <div className="flex flex-col items-center gap-6">
+      <div className="text-2xl font-bold">My Profile</div>
       {user && <EditProfile user={user} />}
     </div>
   );

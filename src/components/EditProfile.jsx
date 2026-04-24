@@ -79,7 +79,7 @@ const EditProfile = ({ user }) => {
   }, [photoUrl, age, gender, about, skills]);
 
   return (
-    <div className=" flex justify-center gap-4 flex-wrap my-20">
+    <div className="flex justify-center gap-4 flex-wrap">
       <div className="flex items-center justify-center">
         <div className="card bg-base-300 w-96 shadow-xl">
           <div className="card-body">

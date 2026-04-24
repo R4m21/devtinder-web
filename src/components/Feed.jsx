@@ -47,7 +47,8 @@ const Feed = () => {
   }, [feed.length]); // Sirf length change pe trigger karein
 
   return (
-    <div className="my-20 flex flex-col items-center gap-6">
+    <div className="flex flex-col items-center gap-6">
+      <div className="text-2xl font-bold">My Feed</div>
       {feed?.length > 0 ? (
         feed?.map((user) => (
           <UserCard key={user._id} user={user} actionButtons={true} />

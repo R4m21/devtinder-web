@@ -19,7 +19,10 @@ const Layout = () => {
       });
       dispatch(addUser(response?.data?.data));
     } catch (err) {
-      console.error("Error fetching user data:", err?.response?.data?.message || err);
+      console.error(
+        "Error fetching user data:",
+        err?.response?.data?.message || err,
+      );
       if (err?.response?.status === 401) {
         dispatch(removeUser());
         navigate("/login");
@@ -34,7 +37,9 @@ const Layout = () => {
   return (
     <>
       <NavBar />
-      <Outlet />
+      <div className="my-20 min-h-[60vh]">
+        <Outlet />
+      </div>
       <Footer />
     </>
   );

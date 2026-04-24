@@ -27,7 +27,7 @@ const Requests = () => {
     !requests.length && getRequests();
   }, []);
   return (
-    <div className="my-20 flex flex-col items-center gap-6">
+    <div className="flex flex-col items-center gap-6">
       <div className="text-2xl font-bold">My Connection Requests</div>
       {requests?.length ? (
         requests.map((request) => (
