@@ -9,14 +9,13 @@ const UserCard = ({ user }) => {
 
   const handleRequest = async (status) => {
     try {
-      const response = await axios.post(
+      await axios.post(
         `${BASE_URL}/request/send/${status}/${user._id}`,
         {},
         { withCredentials: true },
       );
 
       dispatch(updateFeed(user)); // Update the feed based on the response
-      console.log("Request response:", response.data);
     } catch (err) {
       console.error(
         "Failed to send request:",
@@ -26,7 +25,7 @@ const UserCard = ({ user }) => {
   };
 
   return (
-    <div className="card bg-base-100 w-96 shadow-xl">
+    <div className="card bg-base-300 w-96 shadow-xl">
       <figure>
         <img
           src={
@@ -50,7 +49,7 @@ const UserCard = ({ user }) => {
         {user?.about && <p>{user?.about}</p>}
         <div className="card-actions justify-center my-4">
           <button
-            className="btn btn-primary"
+            className="btn btn-error"
             onClick={() => handleRequest("ignored")}
           >
             Ignored
