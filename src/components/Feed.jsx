@@ -6,10 +6,10 @@ import { addFeed } from "../redux/feedSlice";
 import UserCard from "./UserCard";
 
 const Feed = () => {
+  const feed = useSelector((state) => state.feed) || [];
   const dispatch = useDispatch();
   const [pageFeed, setPageFeed] = useState(1);
   const limitFeed = 10;
-  const feed = useSelector((state) => state.feed);
 
   // Strict mode double call handle karne ke liye
   const hasFetched = useRef(false);
@@ -52,9 +52,13 @@ const Feed = () => {
 
   return (
     <div className="my-20 flex flex-col items-center gap-6">
-      {feed.map((item) => (
-        <UserCard key={item._id} user={item} />
-      ))}
+      {feed?.length > 0 ? (
+        feed?.map((user) => (
+          <UserCard key={user._id} user={user} actionButtons={true} />
+        ))
+      ) : (
+        <p className="text-gray-500">No feed available.</p>
+      )}
     </div>
   );
 };
