@@ -10,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [error, setError] = useState("");
 
   const handleLogin = async () => {
     try {
@@ -22,6 +23,10 @@ const Login = () => {
       navigate("/");
     } catch (err) {
       console.error("Login failed:", err);
+      setError(
+        err?.response?.data?.message ||
+          "Something went wrong. Please try again.",
+      );
     }
   };
 
@@ -30,7 +35,7 @@ const Login = () => {
       <div className="card bg-base-300 w-96 shadow-xl">
         <div className="card-body">
           <h2 className="card-title justify-center">Login</h2>
-          <div className="py-3">
+          <div className="pt-3">
             <label className="form-control w-full max-w-xs py-2">
               <div className="label">
                 <span className="label-text">Email ID</span>
@@ -40,8 +45,16 @@ const Login = () => {
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 value={emailId}
-                onChange={(e) => setEmailId(e.target.value)}
+                onChange={(e) => {
+                  setEmailId(e.target.value);
+                  setError("");
+                }}
               />
+              {/* <div className="label">
+                <span className="label-text-alt text-red-400 mt-1">
+                  Bottom Left label
+                </span>
+              </div> */}
             </label>
             <label className="form-control w-full max-w-xs py-2">
               <div className="label">
@@ -52,10 +65,19 @@ const Login = () => {
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setError("");
+                }}
               />
+              {/* <div className="label">
+                <span className="label-text-alt text-red-400 mt-1">
+                  Bottom Left label
+                </span>
+              </div> */}
             </label>
           </div>
+          <p className="label-text-alt text-red-400">{error}</p>
           <div className="card-actions justify-end">
             <button className="btn btn-primary" onClick={handleLogin}>
               Login
