@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { sleep } from "../utils/helpers";
+import { useDispatch } from "react-redux";
+import { addUser } from "../redux/userSlice";
 
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
@@ -13,6 +15,7 @@ const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSignup = async () => {
     setIsLoading(true);
@@ -32,6 +35,7 @@ const Signup = () => {
       setAlertMessage(
         response.data.message || "Signup successful! Please login.",
       );
+      dispatch(addUser(response.data.data));
 
       await sleep(500);
 
@@ -39,7 +43,7 @@ const Signup = () => {
       setLastName("");
       setEmailId("");
       setPassword("");
-      navigate("/login");
+      navigate("/profile");
     } catch (error) {
       setError(
         error.response.data.message || "Signup failed. Please try again.",
