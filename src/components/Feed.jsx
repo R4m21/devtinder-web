@@ -24,7 +24,7 @@ const Feed = () => {
       });
 
       dispatch(addFeed(response.data.data));
-      setPageFeed((prev) => prev + 1);
+      // setPageFeed((prev) => prev + 1);
     } catch (err) {
       console.error(
         "Failed to fetch feed:",
